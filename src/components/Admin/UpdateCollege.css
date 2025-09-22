@@ -1,0 +1,106 @@
+/* Container styling */
+.update-college-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #1f2937; /* dark background */
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.update-college-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.update-college-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+.update-college-header .underline {
+  width: 80px;
+  height: 3px;
+  background-color: #f59e0b;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* Input group */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.input-group input {
+  flex: 1 1 200px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+}
+
+/* Flex row for eligibility & courses */
+.flex-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Add buttons */
+.add-btn {
+  padding: 6px 14px;
+  margin: 5px 0 15px 0;
+  border-radius: 6px;
+  border: none;
+  background-color: #f59e0b;
+  color: #111827;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.add-btn:hover {
+  background-color: #d97706;
+  color: white;
+}
+
+/* Submit buttons */
+.submit-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.submit-buttons button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.submit-buttons button:first-child {
+  background-color: #10b981;
+  color: white;
+}
+.submit-buttons button:first-child:hover {
+  background-color: #059669;
+}
+.submit-buttons button:last-child {
+  background-color: #ef4444;
+  color: white;
+}
+.submit-buttons button:last-child:hover {
+  background-color: #b91c1c;
+}
+
+/* Label */
+label {
+  display: block;
+  margin: 8px 0 5px 0;
+  font-weight: bold;
+}

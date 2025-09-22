@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';     
 import StudentServices from '../../services/StudentService/StudentServices';
+import './AttemptTest.css';
 
 const AttemptTest = () => {
   const [loading, setLoading] = useState(true);
   const [tests, setTest] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({}); 
-  const [username, setUsername] = useState(''); // Replace with session logic later
+  const [username, setUsername] = useState(''); 
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Fetch logged-in username
+    StudentServices.getLoggedInUsername()
+      .then(response => setUsername(response.data))
+      .catch(() => console.log("Username fetch error"));
+
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -36,8 +42,7 @@ const AttemptTest = () => {
     }));
 
     try {
-      const response = await StudentServices.submitTest(submissionData, username);
-      console.log(response.data);
+      await StudentServices.submitTest(submissionData, username);
       alert("Test submitted successfully!");
       navigate('/studentDashboard');
     } catch (error) {
@@ -47,55 +52,48 @@ const AttemptTest = () => {
   };
 
   return (
-    <>
-      <div className='teacherlist'>
-        <h2>Aptitude Test Questions</h2>
+    <div className="attempt-test-container">
+      {/* Header */}
+      <div className="header">
+        <h1>Aptitude Test</h1>
+        <p>Select the correct option for each question below.</p>
       </div>
 
-      <div className='table'>
-        <table>
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Options</th>
-              <th>Section</th>
-            </tr>
-          </thead>
-          {!loading && (
-            <tbody>
-              {tests.map((test) => (
-                <tr key={test.id}>
-                  <td>{test.question}</td>
-                  <td>
-                    {test.options.map((option, idx) => (
-                      <div key={idx}>
-                        <label>
-                          <input
-                            type="radio"
-                            name={`question-${test.id}`}
-                            value={option}
-                            checked={selectedAnswers[test.id] === option}
-                            onChange={() => handleOptionChange(test.id, option)}
-                          />
-                          {option}
-                        </label>
-                      </div>
-                    ))}
-                  </td>
-                  <td>{test.section}</td>
-                </tr>
-              ))}
-            </tbody>
-          )}
-        </table>
-      </div>
-
-      <div className="adminwork">
-        <div className="input">
-          <button onClick={submitTest}>Submit Test</button>
+      {/* Questions */}
+      {!loading ? (
+        <div className="questions-panel">
+          {tests.map((test) => (
+            <div className="question-card" key={test.id}>
+              <div className="question-text">
+                {test.question} <span className="section-label">[{test.section}]</span>
+              </div>
+              <div className="options">
+                {test.options.map((option, idx) => (
+                  <label key={idx} className="option-label">
+                    <input
+                      type="radio"
+                      name={`question-${test.id}`}
+                      value={option}
+                      checked={selectedAnswers[test.id] === option}
+                      onChange={() => handleOptionChange(test.id, option)}
+                    />
+                    {option}
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
+      ) : (
+        <p>Loading questions...</p>
+      )}
+
+      {/* Buttons */}
+      <div className="test-actions">
+        <button className="submit-btn" onClick={submitTest}>Submit Test</button>
+        <button className="cancel-btn" onClick={() => navigate('/studentDashboard')}>Cancel</button>
       </div>
-    </>
+    </div>
   );
 };
 

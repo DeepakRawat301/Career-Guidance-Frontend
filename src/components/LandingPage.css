@@ -1,0 +1,378 @@
+/* LandingPage.css */
+
+/* General container */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #111827;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #000;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 24px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: #facc15;
+}
+
+/* Login buttons */
+.login-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.login-buttons button {
+  background-color: #f59e0b;  /* amber for contrast */
+  color: #111827;             /* dark text for visibility */
+  border: none;
+  padding: 8px 16px;          /* slightly bigger */
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;            /* slightly bigger */
+  transition: background 0.3s, color 0.3s;
+}
+
+.login-buttons button:hover {
+  background-color: #d97706;  /* darker amber on hover */
+  color: white;               /* text turns white on hover */
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #d1d5db;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Background text */
+.hero::before {
+  content: "Find Your Future";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* Section */
+.section {
+  padding: 50px 20px;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+/* Card Grids */
+.card-grid-3,
+.card-grid-2 {
+  display: grid;
+  gap: 20px;
+}
+
+.card-grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  border-radius: 12px;
+  padding: 50px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  color: white;
+}
+
+/* Card colors */
+.card-purple { background-color: #7c3aed; }
+.card-blue { background-color: #2563eb; }
+.card-gray { background-color: #4b5563; }
+.card-yellow { background-color: #f59e0b; }
+.card-blue-light { background-color: #3b82f6; }
+.card-purple-dark { background-color: #6d28d9; }
+.card-green { background-color: #16a34a; }
+
+/* Enhanced Footer */
+.footer-enhanced {
+  background-color: #000;
+  padding: 40px 20px;
+  color: #d1d5db;
+  margin-top: auto;
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-column h4 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-column li:hover {
+  color: #facc15;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* Background text improvement */
+.hero::before {
+  content: "Find Your Future";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 140px;           /* bigger */
+  font-weight: 900;           /* bolder */
+  color: rgba(255, 255, 255, 0.08); /* slightly darker than before */
+  letter-spacing: 4px;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* Hero Title stays above */
+.hero-title {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+/* Modern Card Styles */
+.card {
+  border-radius: 16px;
+  padding: 60px 20px;
+  text-align: center;
+  font-size: 24px;           /* bigger text */
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+/* Card Grid Layout */
+.card-grid-3 {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card-grid-2 {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.section {
+  padding: 60px 20px;
+  background: #f8f9fc;
+}
+
+.section:nth-child(even) {
+  background: #ffffff;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+/* Card Grid for 3-column layout */
+.card-grid-3 {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Section title stays centered */
+.section {
+  padding: 60px 20px;
+  background: inherit;   /* keep same as page background */
+}
+
+
+/* === General Page === */
+.landing-page {
+  background-color: #111827; /* dark background */
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* === HERO Section === */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #d1d5db;
+}
+
+/* === Sections === */
+.section {
+  padding: 60px 20px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+/* === Grid Layout (3 per row) === */
+.card-grid-3 {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+}
+
+/* === Card Styling === */
+.card {
+  border-radius: 16px;
+  padding: 80px 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  width: 100%;
+  max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+  cursor: pointer;
+}
+
+/* === Color Variants (cycled) === */
+.card-1 { background: #2563eb; }  /* blue */
+.card-2 { background: #10b981; }  /* green */
+.card-3 { background: #f59e0b; }  /* amber */
+.card-4 { background: #ef4444; }  /* red */
+.card-5 { background: #8b5cf6; }  /* violet */
+.card-6 { background: #14b8a6; }  /* teal */
+
+/* === General Page === */
+.landing-page,
+.landing-container,
+.section {
+  background-color: #111827; /* unified dark background */
+  color: #fff;               /* text color for visibility */
+}
+
+/* Remove alternating section colors */
+.section:nth-child(even) {
+  background: #111827; /* same as page background */
+}
+
+/* Section title color adjustment for dark background */
+.section-title {
+  color: #fff; /* keep titles visible */
+}
+
+/* Cards remain colorful, no change needed */
+
+
+
+

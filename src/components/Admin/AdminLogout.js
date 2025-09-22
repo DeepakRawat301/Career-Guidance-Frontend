@@ -11,7 +11,7 @@ const AdminLogout = () => {
       AdminServices.logout()
           .then(response => {
               console.log("Logged out successfully:", response);
-              navigate("/login");
+              navigate("/landingPage");
           })
           .catch(error => {
               console.error("Error logging out:", error);

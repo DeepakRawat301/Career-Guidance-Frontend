@@ -1,0 +1,61 @@
+.eligible-college-container {
+  min-height: 100vh;
+  background-color: #111827;
+  color: #f9fafb;
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+/* Header */
+.header h1 {
+  font-size: 28px;
+  color: #f59e0b;
+  margin-bottom: 5px;
+}
+.header p {
+  font-size: 16px;
+  color: #d1d5db;
+  margin-bottom: 20px;
+}
+
+/* Message if no college */
+.no-college-message {
+  color: #f87171;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+/* College cards container */
+.college-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Individual card */
+.college-card {
+  background-color: #1f2937;
+  padding: 20px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.college-card h2 {
+  color: #f59e0b;
+  margin-bottom: 5px;
+}
+
+.eligibility .criteria {
+  margin-left: 10px;
+}
+
+.courses div {
+  margin-left: 10px;
+}

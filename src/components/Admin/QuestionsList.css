@@ -1,0 +1,107 @@
+/* QuestionsList.css */
+
+/* Main container and layout */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #121212; /* Dark background */
+  min-height: 100vh;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  color: #e0e0e0; /* Light text for main content */
+}
+
+/* Heading styling */
+.list-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Table container with responsive overflow */
+.table-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #1e1e1e; /* Slightly lighter dark color for the table card */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+}
+
+/* Main table styling */
+.questions-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.questions-table th,
+.questions-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #333; /* Darker border color */
+}
+
+/* Table header styling */
+.questions-table thead {
+  background-color: #bb86fc; /* Accent color for header */
+  color: white;
+}
+
+.questions-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Table body row styling */
+.questions-table tbody tr {
+  color: #e0e0e0; /* Default text color for table rows */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Corrected hover effect */
+.questions-table tbody tr:hover {
+  background-color: #333333; /* Darker hover background */
+  color: #ffffff; /* **This is the key fix:** Change text to white on hover */
+}
+
+.questions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Action button container */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+/* Button styling */
+.action-buttons button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+
+.action-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.edit-btn {
+  background-color: #38a169;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #e53e3e;
+  color: white;
+}

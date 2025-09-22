@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminServices from '../../services/AdminService/AdminServices';
+import './AddCollege.css'; // Import the CSS file
 
 const AddCollege = () => {
   const navigate = useNavigate();
@@ -15,11 +16,6 @@ const AddCollege = () => {
     coursesOfferedWithFees: [{ courseName: '', tuitionFee: '' }],
     facilities: ['']
   });
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setCollege({ ...college, [e.target.name]: value });
-  };
 
   const reset = (e) => {
     e.preventDefault();
@@ -45,123 +41,125 @@ const AddCollege = () => {
       })
       .catch((error) => {
         if (error.response) {
-          console.log("Backend responded with error:", error.response);
           alert("Error: " + error.response.data);
         } else if (error.request) {
-          console.log("No response received:", error.request);
           alert("No response from server.");
         } else {
-          console.log("Error setting up request:", error.message);
           alert("Error: " + error.message);
         }
       });
   };
 
   return (
-    <div className="container">
-      <div className="header">
-        <div className="text">Add College Details</div>
-        <div className="underline"></div>
+    <div className="college-container">
+      <h2>Add College Details</h2>
+
+      {/* ==== Basic Details ==== */}
+      <h3>Basic Details</h3>
+      <div className="basic-details">
+        <input type="text" placeholder="College ID" value={college.id} 
+          onChange={(e) => setCollege({ ...college, id: e.target.value })} />
+        <input type="text" placeholder="College Name" value={college.name} 
+          onChange={(e) => setCollege({ ...college, name: e.target.value })} />
+        <input type="text" placeholder="Location" value={college.location} 
+          onChange={(e) => setCollege({ ...college, location: e.target.value })} />
+        <input type="number" placeholder="Ranking" value={college.ranking} 
+          onChange={(e) => setCollege({ ...college, ranking: e.target.value })} />
       </div>
 
-      <div className="inputs">
-        <input type="text" placeholder="College ID" value={college.id} onChange={(e) => setCollege({ ...college, id: e.target.value })} />
-        <input type="text" placeholder="College Name" value={college.name} onChange={(e) => setCollege({ ...college, name: e.target.value })} />
-        <input type="text" placeholder="Location" value={college.location} onChange={(e) => setCollege({ ...college, location: e.target.value })} />
-        <input type="number" placeholder="Ranking" value={college.ranking} onChange={(e) => setCollege({ ...college, ranking: e.target.value })} />
-
-        <label>Accreditations:</label>
-        {college.accreditation.map((acc, idx) => (
-          <input key={idx} placeholder={`Accreditation ${idx + 1}`} value={acc}
+      {/* ==== Accreditations ==== */}
+      <h3>Accreditations</h3>
+      {college.accreditation.map((acc, idx) => (
+        <div key={idx} className="inline-group">
+          <input placeholder={`Accreditation ${idx + 1}`} value={acc}
             onChange={(e) => {
               const updated = [...college.accreditation];
               updated[idx] = e.target.value;
               setCollege({ ...college, accreditation: updated });
-            }}
-          />
-        ))}
-        <button type="button" onClick={() => setCollege({ ...college, accreditation: [...college.accreditation, ""] })}>
-          Add Accreditation
-        </button>
+            }} />
+        </div>
+      ))}
+      <button type="button" onClick={() => setCollege({ ...college, accreditation: [...college.accreditation, ""] })}>
+        Add Accreditation
+      </button>
 
-        <label>Eligibility Criteria:</label>
-        {college.eligibilityCriteria.map((item, idx) => (
-          <div key={idx}>
-            <input placeholder="Exam Name" value={item.examName}
-              onChange={(e) => {
-                const updated = [...college.eligibilityCriteria];
-                updated[idx].examName = e.target.value;
-                setCollege({ ...college, eligibilityCriteria: updated });
-              }}
-            />
-            <input placeholder="Min Score" value={item.minScore}
-              onChange={(e) => {
-                const updated = [...college.eligibilityCriteria];
-                updated[idx].minScore = e.target.value;
-                setCollege({ ...college, eligibilityCriteria: updated });
-              }}
-            />
-            <input placeholder="Subject Stream" value={item.subjectStream}
-              onChange={(e) => {
-                const updated = [...college.eligibilityCriteria];
-                updated[idx].subjectStream = e.target.value;
-                setCollege({ ...college, eligibilityCriteria: updated });
-              }}
-            />
-          </div>
-        ))}
-        <button type="button" onClick={() => setCollege({
-          ...college,
-          eligibilityCriteria: [...college.eligibilityCriteria, { examName: "", minScore: "", subjectStream: "" }]
-        })}>
-          Add Eligibility
-        </button>
+      {/* ==== Eligibility Criteria ==== */}
+      <h3>Eligibility Criteria</h3>
+      {college.eligibilityCriteria.map((item, idx) => (
+        <div key={idx} className="inline-group">
+          <input placeholder="Exam Name" value={item.examName}
+            onChange={(e) => {
+              const updated = [...college.eligibilityCriteria];
+              updated[idx].examName = e.target.value;
+              setCollege({ ...college, eligibilityCriteria: updated });
+            }} />
+          <input placeholder="Min Score" value={item.minScore}
+            onChange={(e) => {
+              const updated = [...college.eligibilityCriteria];
+              updated[idx].minScore = e.target.value;
+              setCollege({ ...college, eligibilityCriteria: updated });
+            }} />
+          <input placeholder="Subject Stream" value={item.subjectStream}
+            onChange={(e) => {
+              const updated = [...college.eligibilityCriteria];
+              updated[idx].subjectStream = e.target.value;
+              setCollege({ ...college, eligibilityCriteria: updated });
+            }} />
+        </div>
+      ))}
+      <button type="button" onClick={() => setCollege({
+        ...college,
+        eligibilityCriteria: [...college.eligibilityCriteria, { examName: "", minScore: "", subjectStream: "" }]
+      })}>
+        Add Eligibility
+      </button>
 
-        <label>Courses Offered with Fees:</label>
-        {college.coursesOfferedWithFees.map((course, idx) => (
-          <div key={idx}>
-            <input placeholder="Course Name" value={course.courseName}
-              onChange={(e) => {
-                const updated = [...college.coursesOfferedWithFees];
-                updated[idx].courseName = e.target.value;
-                setCollege({ ...college, coursesOfferedWithFees: updated });
-              }}
-            />
-            <input type="number" placeholder="Tuition Fee" value={course.tuitionFee}
-              onChange={(e) => {
-                const updated = [...college.coursesOfferedWithFees];
-                updated[idx].tuitionFee = e.target.value;
-                setCollege({ ...college, coursesOfferedWithFees: updated });
-              }}
-            />
-          </div>
-        ))}
-        <button type="button" onClick={() => setCollege({
-          ...college,
-          coursesOfferedWithFees: [...college.coursesOfferedWithFees, { courseName: "", tuitionFee: "" }]
-        })}>
-          Add Course
-        </button>
+      {/* ==== Courses Offered ==== */}
+      <h3>Courses Offered with Fees</h3>
+      {college.coursesOfferedWithFees.map((course, idx) => (
+        <div key={idx} className="inline-group">
+          <input placeholder="Course Name" value={course.courseName}
+            onChange={(e) => {
+              const updated = [...college.coursesOfferedWithFees];
+              updated[idx].courseName = e.target.value;
+              setCollege({ ...college, coursesOfferedWithFees: updated });
+            }} />
+          <input type="number" placeholder="Tuition Fee" value={course.tuitionFee}
+            onChange={(e) => {
+              const updated = [...college.coursesOfferedWithFees];
+              updated[idx].tuitionFee = e.target.value;
+              setCollege({ ...college, coursesOfferedWithFees: updated });
+            }} />
+        </div>
+      ))}
+      <button type="button" onClick={() => setCollege({
+        ...college,
+        coursesOfferedWithFees: [...college.coursesOfferedWithFees, { courseName: "", tuitionFee: "" }]
+      })}>
+        Add Course
+      </button>
 
-        <label>Facilities:</label>
-        {college.facilities.map((fac, idx) => (
-          <input key={idx} placeholder={`Facility ${idx + 1}`} value={fac}
+      {/* ==== Facilities ==== */}
+      <h3>Facilities</h3>
+      {college.facilities.map((fac, idx) => (
+        <div key={idx} className="inline-group">
+          <input placeholder={`Facility ${idx + 1}`} value={fac}
             onChange={(e) => {
               const updated = [...college.facilities];
               updated[idx] = e.target.value;
               setCollege({ ...college, facilities: updated });
-            }}
-          />
-        ))}
-        <button type="button" onClick={() => setCollege({ ...college, facilities: [...college.facilities, ""] })}>
-          Add Facility
-        </button>
-      </div>
+            }} />
+        </div>
+      ))}
+      <button type="button" onClick={() => setCollege({ ...college, facilities: [...college.facilities, ""] })}>
+        Add Facility
+      </button>
 
+      {/* ==== Submit Buttons ==== */}
       <div className="submit">
         <button onClick={saveCollege}>Add</button>
         <button onClick={reset}>Clear</button>
-        <button onClick={() => navigate("/")}>Cancel</button>
+        <button className="remove-btn" onClick={() => navigate("/adminDashboard")}>Cancel</button>
       </div>
     </div>
   );

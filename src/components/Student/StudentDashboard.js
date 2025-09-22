@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentServices from '../../services/StudentService/StudentServices';
+import './StudentDashboard.css';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -39,16 +40,18 @@ const StudentDashboard = () => {
 
   const studentdelete = (e) => {
     e.preventDefault();
-    StudentServices.deleteStudentByUsername()
-      .then((response) => {
-        console.log('deleted', response);
-        alert('Student Deleted Successfully.');
-        navigate('/studentlogin');
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('Failed to delete student');
-      });
+    if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+      StudentServices.deleteStudentByUsername()
+        .then((response) => {
+          console.log('deleted', response);
+          alert('Student Deleted Successfully.');
+          navigate('/studentlogin');
+        })
+        .catch((error) => {
+          console.log(error);
+          alert('Failed to delete student');
+        });
+    }
   };
 
   const searchCollege = (e) => {
@@ -68,9 +71,7 @@ const StudentDashboard = () => {
       .catch((error) => {
         setLoading(false);
         if (error.response) {
-          console.log('Backend responded with error:');
-          console.log('Status:', error.response.status);
-          console.log('Data:', error.response.data);
+          console.log('Backend responded with error:', error.response);
           alert('Error: ' + error.response.data);
         } else if (error.request) {
           console.log('No response received. Request was:', error.request);
@@ -83,92 +84,113 @@ const StudentDashboard = () => {
   };
 
   return (
-    <>
-      <div className="container">
-        <div className="head">
-          <h1 className="user">Welcome Student, {username ? username : 'Loading...'}</h1>
+    <div className="student-dashboard-container">
+      {/* Header */}
+      <header className="dashboard-header">
+        <div className="header-left">
+          <h1>Welcome, {username || 'Loading...'}</h1> <h1 className="header-title">Student Dashboard</h1>
         </div>
-      </div>
-
-      <div className="adminwork">
-        <div className="input">
-          <button onClick={(e) => update(e)}>Update</button>
+        <div className="header-right">
+          <button className="btn-secondary" onClick={update}>Update Profile</button>
+          <button className="btn-danger" onClick={studentdelete}>Delete Account</button>
+          <button className="btn-primary" onClick={() => navigate('/studentLogout')}>Logout</button>
         </div>
-        <div className="input">
-          <button onClick={(e) => studentdelete(e)}>Delete</button>
+      </header>
+
+      {/* Main Body */}
+      <main className="dashboard-body">
+        {/* Search Panel */}
+        <div className="dashboard-panel panel-search">
+          <h2>Find Your Dream College</h2>
+          <form onSubmit={searchCollege} className="search-form">
+            <input
+              type="text"
+              name="search"
+              value={college.search}
+              onChange={handleChange}
+              placeholder="Search by name, location, or keyword..."
+            />
+            <button type="submit" className="btn-primary">Search Colleges</button>
+          </form>
         </div>
-        <div className="input">
-          <button onClick={() => navigate('/studentLogout')}>Logout</button>
+
+        {/* Action Panels */}
+        <div className="lower-panels">
+          <div className="dashboard-panel panel-action">
+            <h3>Aptitude Test</h3>
+            <p>Assess your skills and interests to find the best career path for you.</p>
+            <button className="btn-secondary" onClick={() => navigate('/giveTest')}>Attempt Test</button>
+          </div>
+
+          <div className="dashboard-panel panel-action">
+            <h3>Check Eligibility</h3>
+            <p>See which colleges you're eligible for based on your test scores and profile.</p>
+            <button className="btn-secondary" onClick={() => navigate('/checkEligibility')}>Check Eligibility</button>
+          </div>
         </div>
-      </div>
 
-      <div className="search">
-        <input
-          type="text"
-          name="search"
-          value={college.search}
-          onChange={handleChange}
-          placeholder="Search Colleges"
-        />
-        <button onClick={searchCollege}>Search</button>
-      </div>
+        {/* Table of Colleges */}
+        {loading && <p className="loading-message">Loading colleges...</p>}
 
-      <div className="panel">
-        <a onClick={() => navigate('/giveTest')}>Attempt Attitude Test</a>
-      </div>
+        {colleges.length > 0 && (
+          <div className="dashboard-panel panel-table">
+            <h3>Search Results</h3>
+            <div className="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Ranking</th>
+                    <th>Accreditation</th>
+                    <th>Eligibility</th>
+                    <th>Courses & Fees</th>
+                    <th>Facilities</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {colleges.map((college) => (
+                    <tr key={college.id}>
+                      <td>{college.name}</td>
+                      <td>{college.location}</td>
+                      <td>{college.ranking}</td>
+                      <td>{college.accreditation?.join(', ') || 'N/A'}</td>
+                      <td>
+                        {college.eligibilityCriteria?.length > 0 ? (
+                          college.eligibilityCriteria.map((item, i) => (
+                            <div key={i}>
+                              <strong>{item.examName}:</strong> Min Score {item.minScore}
+                            </div>
+                          ))
+                        ) : 'N/A'}
+                      </td>
+                      <td>
+                        {college.coursesOfferedWithFees?.length > 0 ? (
+                          college.coursesOfferedWithFees.map((course, i) => (
+                            <div key={i}>
+                              <strong>{course.courseName}:</strong> ₹{course.tuitionFee}
+                            </div>
+                          ))
+                        ) : 'N/A'}
+                      </td>
+                      <td>{college.facilities?.join(', ') || 'N/A'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        {colleges.length === 0 && !loading && college.search.trim() && (
+          <p className="no-results-message">No colleges found matching your search. Try a different keyword!</p>
+        )}
+      </main>
 
-      <div className="panel">
-        <h2>Attempt Aptitude Test to Get Eligible Colleges</h2>
-        <a onClick={() => navigate('/checkEligibility')}>Get Eligible College</a>
-      </div>
-
-      {loading && <p>Loading colleges...</p>}
-
-      {colleges.length > 0 && (
-        <div className="table">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Ranking</th>
-                <th>Accreditation</th>
-                <th>Eligibility Criteria</th>
-                <th>Courses Offered With Fees</th>
-                <th>Facilities</th>
-              </tr>
-            </thead>
-            <tbody>
-              {colleges.map((college) => (
-                <tr key={college.id}>
-                  <td>{college.id}</td>
-                  <td>{college.name}</td>
-                  <td>{college.location}</td>
-                  <td>{college.ranking}</td>
-                  <td>{college.accreditation?.join(', ')}</td>
-                  <td>
-                    {college.eligibilityCriteria?.map((item, i) => (
-                      <div key={i}>
-                        {item.examName} - {item.minScore} - {item.subjectStream}
-                      </div>
-                    ))}
-                  </td>
-                  <td>
-                    {college.coursesOfferedWithFees?.map((course, i) => (
-                      <div key={i}>
-                        {course.courseName}: ₹{course.tuitionFee}
-                      </div>
-                    ))}
-                  </td>
-                  <td>{college.facilities?.join(', ')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </>
+      {/* Footer */}
+      <footer className="dashboard-footer">
+        <p>&copy; 2025 Career Guidance System. All rights reserved.</p>
+      </footer>
+    </div>
   );
 };
 

@@ -1,6 +1,9 @@
+// AddQuestions.js
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminServices from '../../services/AdminService/AdminServices';
+import './AddQuestions.css'; // Import the external CSS file
 
 const AddQuestions = () => {
   const navigate = useNavigate();
@@ -121,10 +124,10 @@ const AddQuestions = () => {
             />
           </div>
         </div>
-        <div className='submit'>
-          <div className='submit'><button onClick={saveTest}>Save</button></div>
-          <div className='submit'><button onClick={reset}>Clear</button></div>
-          <div className='submit'><button onClick={() => navigate("/")}>Cancel</button></div>
+        <div className='button-container'>
+          <button className='submit-button' onClick={saveTest}>Save</button>
+          <button className='submit-button' onClick={reset}>Clear</button>
+          <button className='submit-button' onClick={() => navigate("/adminDashboard")}>Cancel</button>
         </div>
       </div>
     </>

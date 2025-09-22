@@ -1,0 +1,245 @@
+/* Variables for a dark, professional theme */
+:root {
+  --primary-color: #50e3c2; /* A vibrant teal for accents */
+  --secondary-color: #4a90e2; /* A professional blue */
+  --danger-color: #e9573f; /* A strong red for warnings */
+  --background-color: #1a1a1a; /* Dark background */
+  --panel-bg: #2c2c2c; /* Lighter dark for panels */
+  --text-color: #e0e0e0; /* Light text for readability */
+  --light-text: #b0b0b0; /* Subtler light text */
+  --border-color: #3e3e3e; /* Darker border for separation */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --border-radius: 8px;
+}
+
+.student-dashboard-container {
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Header Styling */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--panel-bg);
+  padding: 20px 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-header .header-right {
+  display: flex;
+  gap: 10px;
+}
+
+/* Button Styling */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.btn-primary:hover {
+  background-color: #43c4a4;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #3a7bd5;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #d14937;
+  transform: translateY(-2px);
+}
+
+/* Main Body and Panels */
+.dashboard-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-panel {
+  background-color: var(--panel-bg);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+h2, h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+/* Search Panel */
+.panel-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.search-form input {
+  flex-grow: 1;
+  padding: 12px;
+  background-color: #333;
+  color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-form button {
+  padding: 12px 25px;
+}
+
+/* Lower Panels */
+.lower-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.panel-action {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.panel-action p {
+  color: var(--light-text);
+}
+
+.panel-action button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Table Styling */
+.panel-table {
+  overflow-x: auto;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+table th, table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+table thead th {
+  background-color: #333;
+  color: var(--text-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+table tbody tr:hover {
+  background-color: #333;
+}
+
+table td {
+  font-size: 14px;
+  color: var(--light-text);
+}
+
+table td strong {
+  color: var(--text-color);
+}
+
+/* Footer */
+.dashboard-footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--light-text);
+  font-size: 14px;
+}
+
+/* Loading and Messages */
+.loading-message, .no-results-message {
+  text-align: center;
+  font-size: 18px;
+  color: var(--light-text);
+  padding: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .dashboard-header .header-right {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .dashboard-header .header-right button {
+    width: 100%;
+  }
+  
+  .search-form {
+      flex-direction: column;
+  }
+  
+  .search-form button {
+      width: 100%;
+  }
+}

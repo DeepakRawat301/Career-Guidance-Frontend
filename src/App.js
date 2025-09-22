@@ -1,6 +1,10 @@
 import './App.css';
-import { BrowserRouter,Routes,Route} from 'react-router-dom';
+import { BrowserRouter,Routes,Route, useLocation} from 'react-router-dom';
+import { useEffect } from 'react';
+
 import Navbar from './components/Navbar';
+import LandingPage from './components/LandingPage';
+
 import AdminLogin from './components/Admin/AdminLogin';
 import StudentLogin from './components/Student/StudentLogin';
 import AdminRegister from './components/Admin/AdminRegister';
@@ -23,14 +27,22 @@ import StudentsList from './components/Admin/StudentsList';
 import AttemptTest from './components/Student/AttemptTest';
 import EligibleCollege from './components/Student/EligibleCollege';
 
+function AppWrapper() {
+  const location = useLocation();
 
-function App() {
+  const isLandingPage = location.pathname === '/';
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <>
-    <BrowserRouter>
-    <Navbar/>
-    <Routes>
-     <Route path="/studentlogin" element={<StudentLogin/>}/>
+      {isLandingPage && <LandingPage />}
+      <Routes>
+      <Route path="/landingPage" element={<LandingPage/>}/>
+
+        <Route path="/studentlogin" element={<StudentLogin/>}/>
       <Route path="/login" element={<AdminLogin/>}/>
       <Route path="/sAdmin" element={<AdminRegister/>}/>
       <Route path="/adminVerify" element={<AdminVerify/>}/>
@@ -56,14 +68,18 @@ function App() {
 
         <Route path="/giveTest" element={<AttemptTest/>}/>
          <Route path="/checkEligibility" element={<EligibleCollege/>}/>
-       
-       
-
       </Routes>
-    </BrowserRouter>
-
     </>
   );
 }
 
+function App() {
+  return (
+    <BrowserRouter>
+      <AppWrapper />
+    </BrowserRouter>
+  );
+}
+
 export default App;
+
